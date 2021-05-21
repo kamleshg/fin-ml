@@ -16,14 +16,14 @@ close_month = pd.DataFrame(
 def get_top_n(prev_returns, top_n):
     """
     Select the top performing stocks
-    
+
     Parameters
     ----------
     prev_returns : DataFrame
         Previous shifted returns for each ticker and date
     top_n : int
         The number of top performing stocks to get
-    
+
     Returns
     -------
     top_stocks : DataFrame
@@ -32,18 +32,18 @@ def get_top_n(prev_returns, top_n):
     # TODO: Implement Function
     retVal = prev_returns.copy()
     retVal.loc[:,:] = 0
-    
+
     for index, row in prev_returns.iterrows():
         winners = prev_returns.loc[index].nlargest(top_n)
         for win in winners.index:
             retVal.loc[index][win] = 1
-            
+
     return retVal.astype('int64')
 
 def date_top_industries(prices, sector, date, top_n):
     """
     Get the set of the top industries for the date
-    
+
     Parameters
     ----------
     prices : DataFrame
@@ -54,7 +54,7 @@ def date_top_industries(prices, sector, date, top_n):
         Date to get the top performers
     top_n : int
         Number of top performers to get
-    
+
     Returns
     -------
     top_industries : set
@@ -63,7 +63,7 @@ def date_top_industries(prices, sector, date, top_n):
     top = prices.loc[date].nlargest(top_n)
 
     bottom = (-1 * prices.loc[date].nlargest(2)) *-1
-    
-    
-    return set(sector.loc[top.index])    
+
+
+    return set(sector.loc[top.index])
 
